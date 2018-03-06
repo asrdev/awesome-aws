@@ -4,7 +4,7 @@ A curated list of awesome AWS tips and tools.
     * [Assigning Tags to AWS Objects](Management/aws_tags.md)
 * Keycloak 
     * [Server - updating](Keycloak/server_updating.md)
-* Kubenettes
+* Kubernetes
     * [Health Checking & Liveness](Kubernetes/Health_Checking_Liveness.md)
     * [Logging options](Kubernetes/Logging_options.md)
     * [Managing Secrets](Kubernetes/Managing_Secrets.md)
