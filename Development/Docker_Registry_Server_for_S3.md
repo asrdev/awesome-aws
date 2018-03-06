@@ -32,7 +32,11 @@ How to build, configure and use a registry server for pushing/pulling Docker con
 When pulling or pushing images through the registry server, it is important to note that the server requires no username or password, since these are provided in the startup script for the server itself. Also, the connection to the server is not via SSL (HTTPS). In order for Docker to allow images to be transferred through the registry, an extra setting must be made within the Docker configuration. This configuration is required in the /etc/docker/daemon.json file:
 
 ![](https://civicadigital.atlassian.net/wiki/download/thumbnails/12845244/image2018-2-20_15-34-55.png?version=1&modificationDate=1519140897475&cacheVersion=1&api=v2&width=406&height=54)
-
+...
+    {
+        "insecure-registries" : ["pipe.egarteam.co.uk:5000"]
+    }
+...
 As shown above, the registry server - in this case `pipe.PROJteam.co.uk` - is defined as an insecure registry, allowing images to be pulled and pushed through it without credentials or SSL. Unless this setting is included, no images will be able to be transferred.
 
 Once the `daemon.json` file is amended, the Docker daemon needs to be restarted (`systemctl docker restart`).
