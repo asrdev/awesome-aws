@@ -6,7 +6,7 @@ The livenessProbe entry is placed at the end of a container definition. The cont
 
 | Entry | Usage |
 |--|--|
-|  initialDelySeconds: | Defines the number of seconds after startup that the liveness probe will delay before checking the container's state.
+|  initialDelaySeconds: | Defines the number of seconds after startup that the liveness probe will delay before checking the container's state.
 |   periodSeconds: | The number of seconds after the first check and seconds between subsequent checks before each succeeding check is carried out.
 |   httpGet: |The liveness check will be made by checking the availability of the interface
 |   path: | The path after the URL (localhost) which is checked to confirm the health of the container.
