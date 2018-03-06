@@ -8,6 +8,7 @@ A curated list of awesome AWS tips and tools.
     * [Health Checking & Liveness](Kubernetes/Health_Checking_Liveness.md)
     * [Logging options](Kubernetes/Logging_options.md)
     * [Managing Secrets](Kubernetes/Managing_Secrets.md)
+    * [Persistent Volumes](Kubernetes/Persistent-Volumes.md)
     * [Operating scripts and general structure](Kubernetes/Operating_scripts_and_general_structure.md)
     * [Some General Concepts](Kubernetes/Some_General_Concepts.md)
 * Docker
