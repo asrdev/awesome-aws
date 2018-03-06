@@ -5,6 +5,10 @@ When defining a Kubernetes deployment or pod, there may be a need to include pas
 **Encrypt the parameters first:**
 
 1.  From the command-line, encode your secret parameters parsing into base64, using the `echo -n` command (_**Note**: The `-n` removes the carriage return from the exported string_)
+```
+echo -n "secretpassword" | base64
+c2VjcmV0cGFzc3dvcmQ=
+```
 2.  Create a secrets yaml fle, such as `secrets.yaml`. Naming of the file is up to you. The format should be similar to below:
 4.  The structure is similar to most Kubernetes yaml config files. The encoded entries are entered alongside the parameter names. Save this file. (_**Note**: Ensure this file is kept safe and is inaccessible, as the encoded entries can be easily converted back to plaintext_)
 6.  To load the secrets into Kubernetes, type `kubectl create -f <filename>`, substituting the <filename> for the actual name of the yaml file.
