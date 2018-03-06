@@ -25,7 +25,7 @@ How to build, configure and use a registry server for pushing/pulling Docker con
 2.  Edit the docker-reg.sh script, replacing the `XXX's with the corresponding AWS accesskey and secretkey.
 3.  ![](https://civicadigital.atlassian.net/wiki/download/attachments/12845244/image2017-11-23_15-16-22.png?version=1&modificationDate=1511450185265&cacheVersion=1&api=v2)
 4.  Start the system by setting the execute bit on the `docker-reg.sh` file (`chmod +x docker-reg.sh`), and then run it (`sudo ./docker-reg.sh`).
-5.  Test that the system is running by opening your browser and navigating to the following URL: [http://pipe.PRteam.co.uk/v2/_catalog](http://pipe.PROJteam.co.uk/v2/_catalog)
+5.  Test that the system is running by opening your browser and navigating to the following URL: [http://pipe.PROJteam.co.uk/v2/_catalog](http://pipe.PROJteam.co.uk/v2/_catalog)
 6.  You should see a simple list of the available repositories in JSON format.
 
 #### Important note:
