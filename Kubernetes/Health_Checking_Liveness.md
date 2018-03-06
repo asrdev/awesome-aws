@@ -12,7 +12,7 @@ The livenessProbe entry is placed at the end of a container definition. The cont
 |   path: | The path after the URL (localhost) which is checked to confirm the health of the container.
 |   port: | The port the container listens on which the liveness probe listens.
 ```
-livenessProe:
+livenessProbe:
   initialDelaySeconds: 60
   periodSeconds: 20
   httpGet:
