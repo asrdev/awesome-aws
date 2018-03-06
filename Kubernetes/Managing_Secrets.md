@@ -42,7 +42,43 @@ password:         62 bytes
 username:         17 bytes
 ```  
 8.  To use these secrets in your Kubernetes configuration, edit the yaml file which loads your deployment/pod and include the following entries in the definition for the container. We will use the example shown above for `dbuser` and `dbpass`:
-10.  As you can see, the `env:` (environment) section is where you define the environment parameters within the `person-api` container above. The name given is `DB_USER`, it`s using a secrets definition with the name `egar-secret` and the key (value) is `dbuser`. So the encoded entry for `dbuser` will be parsed into the environment parameter `DB_USER` in unencrypted form.
+```
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: person-api
+  name: person-api
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: person-api
+    spec:
+      containers:
+      - args:
+        - --spring.profiles.active=prod
+        - --prod.database.url=jdbc:postgresql://proj.chmjeqipapmr.eu-west-2.rds.amazonaws.com/projdb
+        - --prod.database.username=$(DB_USER)
+        - --prod.database.password=$(DB_PASS)
+        env:
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: proj-secret
+                key: dbuser
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: proj-secret
+                key: dbpass
+        image: pipe.projteam.co.uk/proj-people-api:$PEOPLE_API_VER
+        name: person-api
+```
+10.  As you can see, the `env:` (environment) section is where you define the environment parameters within the `person-api` container above. The name given is `DB_USER`, it`s using a secrets definition with the name `proj-secret` and the key (value) is `dbuser`. So the encoded entry for `dbuser` will be parsed into the environment parameter `DB_USER` in unencrypted form.
 12.  Secrets can also be accessed from within the container via shell scripts running within the containerised environment. In this instance, simply reference them normally within the shell script (eg: `$DB_USER`).
 13.  You can define multiple secrets in the secrets yaml file, but you can only reference those secrets which are directly defined within the yaml file for each pod/deployment.
 14.  **Secrets must be loaded prior to loading the pods/deployments which utilise them, so ensure you run kubectl against the secrets yaml file before creating any other pods**.
