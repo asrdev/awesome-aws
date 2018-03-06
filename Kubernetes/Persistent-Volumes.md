@@ -1,3 +1,5 @@
+# Kubernetes 
+## Persistent Volumes
 Docker container objects are what is known as 'immutable', meaning that any changes which occur within them while running will be lost when the container is brought down and back up again. This means that if, for instance, you're running a web server and require changes to be made to the root document, but you want those changes to survive beyond the next container restart, you will have to create a persistent volume, or a file space which exists outside the container.
 
 A common way to define a persistent volume is to create a folder on one of the nodes in the Kubernetes cluster and then map a folder inside the container to that folder. To do this, you have to create a 'nodeSelector' definition within the yaml file for the deployment using it. This defines the node or slave in the cluster which will host the folder(s). The nodeSelector, however, points not to the node name itself, but the label you give a node (which can be the same as the node name if required).
