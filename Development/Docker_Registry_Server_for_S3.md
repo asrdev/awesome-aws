@@ -37,7 +37,7 @@ When pulling or pushing images through the registry server, it is important to n
         "insecure-registries" : ["pipe.egarteam.co.uk:5000"]
     }
 ```
-As shown above, the registry server - in this case `pipe.PROJteam.co.uk` - is defined as an insecure registry, allowing images to be pulled and pushed through it without credentials or SSL. Unless this setting is included, no images will be able to be transferred.
+As shown above, the registry server - in this case `pipe.egarteam.co.uk` - is defined as an insecure registry, allowing images to be pulled and pushed through it without credentials or SSL. Unless this setting is included, no images will be able to be transferred.
 
 Once the `daemon.json` file is amended, the Docker daemon needs to be restarted (`systemctl docker restart`).
 
