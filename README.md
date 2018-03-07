@@ -2,6 +2,7 @@
 A curated list of awesome AWS tips and tools.
 * Management
     * [Assigning Tags to AWS Objects](Management/aws_tags.md)
+    * [Scheduling a startup/shutdown of EC2 instances](Management/AWS_Scheduled_Startup_Shutdown.md)
 * Keycloak 
     * [Server - updating](Keycloak/server_updating.md)
 * Kubernetes
