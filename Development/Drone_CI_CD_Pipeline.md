@@ -87,3 +87,74 @@ Drone can parse secrets held on the Drone server into the environments of the co
 7.  ![](https://civicadigital.atlassian.net/wiki/download/attachments/12910792/image2018-1-2_16-37-34.png?version=1&modificationDate=1514911056326&cacheVersion=1&api=v2)
 8.  in the above, the secrets referred to are 'access_key' and 'access_key_id'. These have been entered as secrets in the repo entry in Drone.
 9.  IMPORTANT NOTE: When referring to secrets within any part of the environment where they are called, they will be accessible as upper-case environment variables. For instance, the two secrets defined in the screen-shot above would be accessed as '$ACCESS_KEY' and '$ACCESS_KEY_ID'. So when the 'build-deploy.sh' script above calls these values, they are called as defined earlier in this entry (eg: $ACCESS_KEY).
+
+Below is a 'docker-compose.yml' sample for running a Drone instance:
+```
+version: '2'
+
+services:
+  drone-server:
+    image: drone/drone:0.8.1
+    ports:
+      - 8000:8000
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/drone:/var/lib/drone/
+      - ./secrets/drone-secrets.yml:/etc/drone-secrets.yml
+    restart: always
+    environment:
+      - DRONE_ADMIN=bhartcivica
+      - DRONE_OPEN=true
+      - DRONE_HOST=http://${DRONE_IP}:8000
+      - DRONE_BITBUCKET=true
+      - DRONE_BITBUCKET_CLIENT=${DRONE_BITBUCKET_CLIENT}
+      - DRONE_BITBUCKET_SECRET=${DRONE_BITBUCKET_SECRET}
+      - DRONE_SECRET=hello
+      - DRONE_LETS_ENCRYPT=false
+      - DOCKER_REPO_USER=${DOCKER_REPO_USER}
+      - DOCKER_REPO_PASSWORD=${DOCKER_REPO_PASSWORD}
+      - DOCKER_REGISTRY=${DOCKER_REGISTRY}
+      - DRONE_GLOBAL_SECRETS-/etc/drone-secrets.yml
+
+  drone-agent:
+    image: drone/agent:0.8.1
+    command: agent
+    restart: always
+    depends_on:
+      - drone-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SERVER=${DRONE_INTERNAL_IP}:9000
+      - DRONE_SECRET=hello
+      - DRONE_HOST=http://${DRONE_IP}:8000
+      - DOCKER_REPO_USER=${DOCKER_REPO_USER}
+      - DOCKER_REPO_PASSWORD=${DOCKER_REPO_PASSWORD}
+      - DOCKER_REGISTRY=${DOCKER_REGISTRY}
+```
+Each of the environment parameters in the above script can be defined in a startup shell script where the parameters can be set prior
+to launching a 'docker-compose up' to bring up the Drone containers. A sample of one such script is given below:
+```
+#!/bin/sh
+# Script to set environment paarameters for Drone and start
+# Export Drone parameters for Bitbucket
+cd /home/ec2-user/drone
+export DRONE_IP="drone.projteam.co.uk"
+# export DRONE_IP="35.xxx.xxx.xxx"
+export DRONE_INTERNAL_IP="10.xxx.xxx.xxx"
+# Set the required env parameters below if using GitHub or Bitbucket.
+export DRONE_GITHUB_CLIENT=e1xxxxxxxxxxxxxxxx
+export DRONE_GITHUB_SECRET=90exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export DRONE_SECRET="dixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export DRONE_BITBUCKET_CLIENT=9xxxxxxxxxxxxxxxxxx
+export DRONE_BITBUCKET_SECRET=pjxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Export container params for pushing to remote repo
+export DOCKER_PASSWORD=Password#
+export DOCKER_USERNAME=myusername
+export DOCKER_REGISTRY=3xxxxxxxxxx.dkr.ecr.eu-west-2.amazonaws.com
+export DOCKER_REPO_PASSWORD=eyxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxleHBpcmF0xxxxxxxxxNTEwOTY0MDMzfQ==
+export DOCKER_REPO_USER=AWS
+# Start instance
+/usr/local/bin/docker-compose up
+```
