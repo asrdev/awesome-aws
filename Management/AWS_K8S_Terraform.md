@@ -1,5 +1,11 @@
 # Terraform scripts for creating a Kubernetes Master and Slave Node
-Terraform by Hashicorp can create and tear down infrastructure on demand, so it can prove very useful in deploying a Kubernetes cluster and allowing it to exist only for the time required. Terraform can be downloaded here: https://www.terraform.io/downloads.html. The following script can be run by saving it as "filename.tf" - ensuring the filename suffix is 'tf' and then running 'terraform apply'. You will need to adjust the script parameters accordingly to suit your environment. This will create and run a Kubernetes master node.
+Terraform by Hashicorp can create and tear down infrastructure on demand, so it can prove very useful in deploying a Kubernetes cluster and allowing it to exist only for the time required. Terraform can be downloaded here: https://www.terraform.io/downloads.html. The following script can be run by saving it as "filename.tf" - ensuring the filename suffix is 'tf' and then running 'terraform apply'. You will need to adjust the script parameters accordingly to suit your environment. To delete the instances, run 'terraform destroy' in the same folder the .tf files are in. The master node should be created first, so that the master nodes' IP can be entered in the .tf file for the minion(s). In all cases, the /etc/hosts file on each node - master and slaves - should have entries for all nodes in the cluster, as shown below.
+```
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.12.18.25     kmaster01 kmaster01.civica.local
+10.12.18.31     kminion02 kminion02.civica.local
+```
 ## Kubernetes Master Node
 The parameters you will need to amend are:
 * access_key: This is the AWS access key you use to connect to AWS.
