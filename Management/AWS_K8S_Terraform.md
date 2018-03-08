@@ -70,6 +70,7 @@ resource "aws_instance" "example" {
       "sudo set -i -e 's/2380/2379/g' /etc/etcd/etcd.conf",
       "sudo sed -i -e 's/bind-address=127.0.0.1/bind-address=0.0.0.0/g' /etc/kubernetes/apiserver",
       "sudo sed -i -e 's/127.0.0.1/0.0.0.0/g' /etc/kubernetes/apiserver",
+      "sudo sed -i -e 's/KUBE_ADMISSION_CONTROL/# KUBE_ADMISSION_CONTROL/g' /etc/kubernetes/apiserver",
       "sudo systemctl start etcd",
       "sudo chmod 755 /tmp/etcdnet.sh",
       "sudo /tmp/etcdnet.sh",
