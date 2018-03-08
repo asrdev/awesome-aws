@@ -1,8 +1,5 @@
 # Terraform scripts for creating a Kubernetes Master and Slave Node
-Terraform can create and tear down infrastructure on demand, so it can prove very useful in deploying a Kubernetes cluster and allowing
-it to exist only for the time required. The following script can be run by saving it as "filename.tf" - ensuring the filename suffix is 'tf'
-and then running 'terraform apply'. You will need to adjust the script parameters accordingly to suit your environment. This will create
-and run a Kubernetes master node.
+Terraform by Hashicorp can create and tear down infrastructure on demand, so it can prove very useful in deploying a Kubernetes cluster and allowing it to exist only for the time required. Terraform can be downloaded here: https://www.terraform.io/downloads.html. The following script can be run by saving it as "filename.tf" - ensuring the filename suffix is 'tf' and then running 'terraform apply'. You will need to adjust the script parameters accordingly to suit your environment. This will create and run a Kubernetes master node.
 ## Kubernetes Master Node
 The parameters you will need to amend are:
 * access_key: This is the AWS access key you use to connect to AWS.
